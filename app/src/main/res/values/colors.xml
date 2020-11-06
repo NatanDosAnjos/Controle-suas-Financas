@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#01C7D2</color>
+    <color name="colorPrimaryDark">#00b2bc</color>
+    <color name="colorAccent">#ff706a</color>
+
+    <!-- Income Colors -->
+    <color name="incomePrimary">#00D39E</color>
+    <color name="incomePrimaryDark">#00D39E</color>
+    <color name="incomeAccent">#00D39E</color>
+
+    <!-- Expense Colors -->
+    <color name="expensePrimary">#FF706A</color>
+    <color name="expensePrimaryDark">#E66560</color>
+    <color name="expenseAccent">#FF706A</color>
+
+</resources>

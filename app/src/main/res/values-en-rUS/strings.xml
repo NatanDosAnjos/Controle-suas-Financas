@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Organizze</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="btnCreateAccount">Create Account</string>
+    <string name="dont_have_account">I don\'t have an account!</string>
+    <string name="login">Login</string>
+    <string name="text_of_sign_up_activity">Create your free account</string>
+    <string name="sign_up">Sign up</string>
+    <string name="already_have_an_account">Already have an account!</string>
+    <string name="logout">Logout</string>
+    <string name="configuration">Settings</string>
+    <string name="description">ex: Gas</string>
+    <string name="string_value">ex: 9.90</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="text_of_login_activity">Access your account</string>
+    <string name="settings">Settings</string>
+</resources>
