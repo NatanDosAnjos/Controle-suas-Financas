@@ -12,6 +12,7 @@ import com.example.organizze.others.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import kotlinx.android.synthetic.main.activity_login.*
 import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
@@ -30,13 +31,17 @@ class LoginActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.btnLoginActivity).setOnClickListener {
             val email = emailField.text.toString()
-            val psswd = passwordField.text.toString()
+            val password = passwordField.text.toString()
 
             if(email.isNotEmpty()) {
-                if(psswd.isNotEmpty()) {
-                   auth = FirebaseConfiguration.getAuthentication()
+                if(password.isNotEmpty()) {
+                    btnLoginActivity.text = getString(R.string.logging_in)
+                    btnLoginActivity.isEnabled = false
+                    auth = FirebaseConfiguration.getAuthentication()
 
-                    auth.signInWithEmailAndPassword(email, psswd).addOnCompleteListener {
+                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+
+
                         if (it.isSuccessful) {
                             openFirstActivity()
 
@@ -45,26 +50,26 @@ class LoginActivity : AppCompatActivity() {
                                 throw it.exception!!
 
                             } catch (e: FirebaseAuthInvalidUserException) {
-                                showToast(this, "Usuário não cadastrado")
+                                showToast(this, getString(R.string.unregistered_user))
 
                             } catch (e: FirebaseAuthInvalidCredentialsException) {
-                                showToast(this, "Email ou Senha incorretas")
-                                e.printStackTrace()
+                                showToast(this, getString(R.string.wrong_email_or_password))
 
                             } catch (e: Exception) {
-                                showToast(this, "Erro ao tentar logar")
-                                e.printStackTrace()
+                                showToast(this, getString(R.string.login_error))
                             }
+                            btnLoginActivity.isEnabled = true
+                            btnLoginActivity.text = getString(R.string.login)
                         }
                     }
 
 
                 } else {
-                    showToast(this, "Digite a senha")
+                    showToast(this, getString(R.string.type_password))
                 }
 
             } else {
-                showToast(this, "Digite o email")
+                showToast(this, getString(R.string.type_email))
             }
         }
 

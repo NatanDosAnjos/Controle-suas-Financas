@@ -9,7 +9,6 @@
         android:title="@string/settings" />
     <item
         android:id="@+id/logout_item"
-        android:checked="false"
         android:icon="@drawable/ic_baseline_logout_24"
         android:title="@string/logout" />
 </menu>
