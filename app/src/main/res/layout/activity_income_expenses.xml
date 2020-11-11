@@ -32,6 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="R$ 0,00" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
@@ -50,14 +51,14 @@
         app:layout_constraintBottom_toTopOf="@+id/editTextDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextValue" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextCategory" />
 
     <EditText
         android:id="@+id/editTextValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:drawableStart="@drawable/ic_baseline_money_24"
         android:drawablePadding="4dp"
@@ -65,12 +66,11 @@
         android:hint="@string/string_value"
         android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
-        app:layout_constraintBottom_toTopOf="@+id/editTextDescription"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/secondConstraintLayout"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintVertical_chainStyle="spread" />
+        app:layout_constraintVertical_bias="0.43" />
 
     <EditText
         android:id="@+id/editTextDate"
@@ -107,15 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.27" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/groupCheckBox"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:constraint_referenced_ids="checkBoxExpense,checkBoxIncome"
-        tools:layout_editor_absoluteX="298dp"
-        tools:layout_editor_absoluteY="594dp" />
+        app:layout_constraintGuide_percent="0.26000" />
 
     <CheckBox
         android:id="@+id/checkBoxExpense"
@@ -139,5 +131,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/checkBoxExpense" />
+
+    <EditText
+        android:id="@+id/editTextCategory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:drawableStart="@drawable/ic_baseline_category_24"
+        android:drawablePadding="@dimen/drawbleIconPadding"
+        android:ems="10"
+        android:hint="@string/category"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextValue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

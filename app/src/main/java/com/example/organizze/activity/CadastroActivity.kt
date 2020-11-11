@@ -42,15 +42,15 @@ class CadastroActivity : AppCompatActivity() {
                         registerUser(user)
 
                     } else {
-                        showToast(this, "Coloque a senha")
+                        showToast(this, getString(R.string.type_password))
                     }
 
                 } else {
-                    showToast(this, "Informe o Email")
+                    showToast(this, getString(R.string.type_email))
                 }
 
             } else {
-                showToast(this, "Preencha o seu nome")
+                showToast(this, getString(R.string.type_your_name))
             }
         }
 
@@ -66,7 +66,7 @@ class CadastroActivity : AppCompatActivity() {
             auth.createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener{
             if (it.isSuccessful) {
                 user.userId = FirebaseConfiguration.getAuthentication().currentUser!!.uid
-                DataBase.saveInDataBase(user)
+                DataBase.saveInDataBase(user, User.FIRST_CHILD)
 
                 startActivity(Intent(this, FirstActivity::class.java))
                 finish()
@@ -77,19 +77,19 @@ class CadastroActivity : AppCompatActivity() {
                    throw it.exception!!
 
                 } catch (e: FirebaseAuthUserCollisionException) {
-                    showToast(this, "Email já cadastrado")
+                    showToast(this, getString(R.string.email_already_registered))
 
                 } catch (e: FirebaseAuthEmailException) {
-                    showToast(this, "Formato de e-mail não suportado")
+                    showToast(this, getString(R.string.invalid_email_format))
 
                 } catch (e: FirebaseAuthWeakPasswordException) {
-                    showToast(this, "Senha com menos de 6 caracteres")
+                    showToast(this, getString(R.string.at_least_six_characters))
 
                 }catch (e: FirebaseAuthInvalidCredentialsException) {
-                    showToast(this, "Formato de e-mail não válido")
+                    showToast(this, getString(R.string.invalid_email_format))
 
                 } catch (e: Exception) {
-                    showToast(this, "Erro ao Cadastrar Usuário")
+                    showToast(this, getString(R.string.error_to_register_user))
                     e.printStackTrace()
                 }
             }

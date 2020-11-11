@@ -8,4 +8,22 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="IncomeTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/incomePrimary</item>
+        <item name="colorPrimaryDark">@color/incomePrimaryDark</item>
+        <item name="colorAccent">@color/incomeAccent</item>
+    </style>
+
+    <style name="ExpenseTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/incomePrimary</item>
+        <item name="colorPrimaryDark">@color/incomePrimaryDark</item>
+        <item name="colorAccent">@color/incomeAccent</item>
+
+    </style>
+
 </resources>
