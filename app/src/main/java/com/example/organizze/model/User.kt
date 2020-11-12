@@ -5,6 +5,8 @@ import com.google.firebase.database.Exclude
 open class User (){
     companion object {
         @JvmStatic val FIRST_CHILD = "users"
+        @JvmStatic val STRING_TOTAL_INCOME = "totalIncome"
+        @JvmStatic val STRING_TOTAL_EXPENSES = "totalExpenses"
     }
 
     var name = ""
