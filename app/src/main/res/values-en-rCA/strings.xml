@@ -33,4 +33,5 @@
     <string name="type_date">Type the Date</string>
     <string name="logging_in">Loggin in Account</string>
     <string name="salutation">Hi</string>
+    <string name="total_balance">Total balance</string>
 </resources>
