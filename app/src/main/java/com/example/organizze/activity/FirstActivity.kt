@@ -55,6 +55,7 @@ class FirstActivity : AppCompatActivity() {
            layoutManager = myLayoutManager
            adapter = myAdapter
         }
+<<<<<<< HEAD
     }
 
 
@@ -77,6 +78,26 @@ class FirstActivity : AppCompatActivity() {
     }
 
 
+=======
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        // Esse método recebe uma instância da classe User que será atribuída a única propriedade do companion object
+        // da classe GlobalUserInstance que está no pacote others
+        // E é nesse companion object que estou tentando colocar um listener
+        DataBase.readUserInformationInDataBase(uidFromFirebase!!)
+
+        // Quando a propriedade da classe GlobalUserInstance mudar seu valor, queria colocar esse bloco de código para executar
+        val salutation = "${getString(R.string.salutation)}, ${GlobalUserInstance.instance.name}"
+        viewSalutation.text = salutation
+        showValue(viewInformation, GlobalUserInstance.instance.totalExpenses)
+        showValue(viewBalance, GlobalUserInstance.instance.getBalance())
+    }
+
+
+>>>>>>> 9a007cc1abc74961de212cbcb56bd6174056eb0c
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
