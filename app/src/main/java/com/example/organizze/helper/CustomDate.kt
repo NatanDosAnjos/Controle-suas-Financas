@@ -23,8 +23,12 @@ class CustomDate (millis: Long) {
         return SimpleDateFormat("dd/MM/yyyy", locale).format(timeOfFinancialMovement)
     }
 
-    fun getMonthAndDay(): String {
-        return SimpleDateFormat("MMdd", Locale("PT", "BR")).format(timeOfFinancialMovement)
+    fun getMonth(): String {
+        return SimpleDateFormat("dd", Locale("PT", "BR")).format(timeOfFinancialMovement)
+    }
+
+    fun getDay(): String {
+        return SimpleDateFormat("MM", Locale("PT", "BR")).format(timeOfFinancialMovement)
     }
 
     fun getYear():String {
