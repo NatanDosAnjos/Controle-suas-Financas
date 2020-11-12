@@ -16,5 +16,9 @@ class GlobalUserInstance{
         private fun onChangeUser(run: Runnable?) {
             run?.run()
         }
+
+        fun setOnChangeUser(runnable: Runnable) {
+            this.runnable = runnable
+        }
     }
 }

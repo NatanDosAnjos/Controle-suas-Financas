@@ -55,8 +55,8 @@ class FirstActivity : AppCompatActivity() {
            layoutManager = myLayoutManager
            adapter = myAdapter
         }
-    }
 
+    }
 
     override fun onStart() {
         super.onStart()
