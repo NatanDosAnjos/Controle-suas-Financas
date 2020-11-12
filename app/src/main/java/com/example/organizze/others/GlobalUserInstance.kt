@@ -3,14 +3,18 @@ package com.example.organizze.others
 import com.example.organizze.model.User
 
 class GlobalUserInstance{
-    // Cria uma classe que representa uma instância stática da classe Usuário
+    // Este é quase um singleton. Criei uma classe que representa uma instância stática da classe Usuário
     companion object {
         private var runnable: Runnable? = null
 
         @JvmStatic var instance = User()
-            set(value) {
+        set(value) {
             field = value
-            runnable?.run()
+            onChangeUser(runnable)
+        }
+
+        private fun onChangeUser(run: Runnable?) {
+            run?.run()
         }
 
         fun setOnChangeUser(runnable: Runnable) {

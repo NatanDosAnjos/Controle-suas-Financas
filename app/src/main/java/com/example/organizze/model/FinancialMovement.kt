@@ -16,7 +16,6 @@ class FinancialMovement {
     @get:Exclude var userId = ""
     @get:Exclude var customDate: CustomDate? = null
 
-    @Exclude
     fun isExpense(): Boolean {
         return incomeOrExpense == "E" || incomeOrExpense == "e"
     }

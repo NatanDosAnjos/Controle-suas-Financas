@@ -1,6 +1,5 @@
 package com.example.organizze.database
 
-import com.example.organizze.config.FirebaseConfiguration
 import com.example.organizze.model.FinancialMovement
 import com.example.organizze.model.User
 import com.example.organizze.others.GlobalUserInstance
@@ -34,8 +33,7 @@ class DataBase {
                 .child(FinancialMovement.FIRST_CHILD)
                 .child(financialMovement.userId)
                 .child(financialMovement.customDate!!.getYear())
-                .child(financialMovement.customDate!!.getMonth())
-                .child(financialMovement.customDate!!.getDay())
+                .child(financialMovement.customDate!!.getMonthAndDay())
                 .child(financialMovement.category)
                 .child(financialMovement.incomeOrExpense)
                 .child(financialMovement.description)
@@ -58,25 +56,6 @@ class DataBase {
 
                 }
             })
-        }
-
-        @JvmStatic
-        fun updateUserInformation(userId: String, financialMovement: FinancialMovement) {
-            val userReference = this.getFirebaseDB()
-                .child(User.FIRST_CHILD)
-                .child(userId)
-
-            if (financialMovement.isExpense()) {
-                val newValue = GlobalUserInstance.instance.totalExpenses + financialMovement.value
-                userReference
-                    .child(User.STRING_TOTAL_EXPENSES)
-                    .setValue(newValue)
-            } else {
-                val newValue = GlobalUserInstance.instance.totalIncome + financialMovement.value
-                userReference
-                    .child(User.STRING_TOTAL_INCOME)
-                    .setValue(newValue)
-            }
         }
     }
 }

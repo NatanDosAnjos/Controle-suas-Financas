@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
@@ -17,14 +16,13 @@ import com.example.organizze.database.DataBase
 import com.example.organizze.model.FinancialMovement
 import com.example.organizze.others.GlobalUserInstance
 import com.example.organizze.others.getLocale
-import com.example.organizze.others.showToast
-import com.google.android.material.snackbar.Snackbar
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.text.NumberFormat
 
 class FirstActivity : AppCompatActivity() {
     lateinit var viewSalutation: TextView
-    private lateinit var viewInformation: TextView
+    lateinit var viewBalance: TextView
+    lateinit var viewInformation: TextView
     var uidFromFirebase: String? = null
 
 
@@ -34,31 +32,21 @@ class FirstActivity : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         // O Método estático getAuthentication() é um singleton da referência do Firebase Auth
-        // Captura o UID do usuário logado no momento e o coloco em uma variável que seja visível por toda a classe
+        // Capturo o UID do usuário logado no momento e o coloco em uma variável que seja visível por toda a classe
         // Essa variável será passada como parâmetro para buscar os dados do usuário correto no banco de dados na função OnStart()
         uidFromFirebase = FirebaseConfiguration.getAuthentication().currentUser?.uid
 
-        // Lẽ os dados do usuário especificado pelo uid e atribui a instancia da classe User referente na variável "instance" da classe GlobalUserInstance
-        DataBase.readUserInformationInDataBase(uidFromFirebase!!)
-
-        //Define o listener listener para a propriedade instace
-        GlobalUserInstance.setOnChangeUser(kotlinx.coroutines.Runnable {
-            val salutation = "${getString(R.string.salutation)}, ${GlobalUserInstance.instance.name}"
-            viewSalutation.text = salutation
-            showValue(viewInformation, GlobalUserInstance.instance.getBalance())
-            findViewById<TextView>(R.id.textViewBalance).text = getString(R.string.total_balance)
-        })
-
         viewSalutation = findViewById(R.id.textViewSalutation)
         viewInformation = findViewById(R.id.textViewInformation)
+        viewBalance = findViewById(R.id.textViewBalance)
 
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
             startActivity(Intent(this, IncomeExpensesActivity::class.java))
         }
 
-        findViewById<MaterialCalendarView>(R.id.calendarView).setOnMonthChangedListener { view, date ->
-
+        findViewById<MaterialCalendarView>(R.id.calendarView).setOnMonthChangedListener { _, date ->
+            println(date.month)
         }
 
         val myAdapter = MyAdapter(fakeList())
@@ -68,6 +56,24 @@ class FirstActivity : AppCompatActivity() {
            adapter = myAdapter
         }
 
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Esse método recebe uma instância da classe User que será atribuída a única propriedade do companion object
+        // da classe GlobalUserInstance que está no pacote others
+        // E é nesse companion object que estou tentando colocar um listener
+        DataBase.readUserInformationInDataBase(uidFromFirebase!!)
+        GlobalUserInstance.setOnChangeUser(kotlinx.coroutines.Runnable {
+
+            // Quando a propriedade da classe GlobalUserInstance mudar seu valor, queria colocar esse bloco de código para executar
+            val salutation =
+                "${getString(R.string.salutation)}, ${GlobalUserInstance.instance.name}"
+
+            viewSalutation.text = salutation
+            showValue(viewInformation, GlobalUserInstance.instance.totalExpenses)
+            showValue(viewBalance, GlobalUserInstance.instance.getBalance())
+        })
     }
 
 
@@ -87,7 +93,6 @@ class FirstActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     override fun onBackPressed() {
         finish()

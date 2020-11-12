@@ -8,7 +8,6 @@
     <!-- Strings used for activity_first -->
     <string name="title_activity_first" translatable="false">FirstActivity</string>
     <string name="salutation">Olá</string>
-    <string name="total_balance">Saldo total</string>
 
 
     <!-- Strings  used for activity_login -->

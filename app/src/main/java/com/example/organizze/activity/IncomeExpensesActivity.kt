@@ -4,7 +4,6 @@ package com.example.organizze.activity
 import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
@@ -16,10 +15,8 @@ import com.example.organizze.database.DataBase
 import com.example.organizze.helper.CustomDate
 import com.example.organizze.model.FinancialMovement
 import com.example.organizze.others.getLocale
-import com.example.organizze.others.showSnackbar
 import com.example.organizze.others.showToast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import java.text.NumberFormat
 import java.util.*
 
@@ -89,21 +86,17 @@ class IncomeExpensesActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             if(!checkBoxExpense.isChecked && !checkBoxIncome.isChecked) {
-                showSnackbar(fab, getString(R.string.select_financial_movement_type))
-
+                showToast(this, resources.getString(R.string.select_financial_movement_type))
             } else if(financialMovement.value == 0.0){
-                showSnackbar(fab, getString(R.string.type_value))
-
+                showToast(this, resources.getString(R.string.type_value))
             } else if(viewDate.text.toString().isEmpty()) {
-                showSnackbar(fab, getString(R.string.type_date))
-
+                showToast(this, getString(R.string.type_date))
             } else {
                 financialMovement.category = viewCategory.text.toString()
                 financialMovement.date = viewDate.text.toString()
                 financialMovement.description = viewDescription.text.toString()
                 financialMovement.customDate = CustomDate(Date(viewDate.text.toString()))
                 DataBase.saveInDataBase(financialMovement)
-                DataBase.updateUserInformation(FirebaseConfiguration.getAuthentication().currentUser!!.uid, financialMovement)
                 finish()
             }
         }
