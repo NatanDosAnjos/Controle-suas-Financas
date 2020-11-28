@@ -1,6 +1,5 @@
 package com.example.organizze.database
 
-import com.example.organizze.config.FirebaseConfiguration
 import com.example.organizze.model.FinancialMovement
 import com.example.organizze.model.User
 import com.example.organizze.others.GlobalUserInstance
@@ -33,9 +32,9 @@ class DataBase {
             this.getFirebaseDB()
                 .child(FinancialMovement.FIRST_CHILD)
                 .child(financialMovement.userId)
-                .child(financialMovement.customDate!!.getYear())
-                .child(financialMovement.customDate!!.getMonth())
-                .child(financialMovement.customDate!!.getDay())
+                .child(financialMovement.year)
+                .child(financialMovement.month)
+                .child(financialMovement.day)
                 .child(financialMovement.category)
                 .child(financialMovement.incomeOrExpense)
                 .child(financialMovement.description)

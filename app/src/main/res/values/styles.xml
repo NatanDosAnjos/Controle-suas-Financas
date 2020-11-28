@@ -17,4 +17,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DateDialogIncome" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorAccent">@color/incomeAccent</item>
+    </style>
+
+    <style name="DateDialogExpense" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorAccent">@color/expenseAccent</item>
+    </style>
+
+    <style name="DateDialogNothing" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>

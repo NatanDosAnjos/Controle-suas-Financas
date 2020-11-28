@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".activity.IncomeExpensesActivity"
-            android:theme="@style/IncomeExpenseTheme"/>
+            android:theme="@style/IncomeExpenseTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".activity.FirstActivity"
             android:label="@string/title_activity_first"

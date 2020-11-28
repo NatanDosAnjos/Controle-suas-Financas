@@ -17,8 +17,8 @@
         android:layout_gravity="bottom|center"
         android:layout_margin="16dp"
         android:clickable="true"
+        android:focusable="true"
         app:backgroundTint="@color/colorPrimaryDark"
-        app:layout_anchor="@+id/includeTest"
         app:layout_anchorGravity="bottom|center"
         app:srcCompat="@drawable/ic_baseline_check_white_48" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

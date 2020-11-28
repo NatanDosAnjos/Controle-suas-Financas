@@ -5,38 +5,39 @@ import java.util.*
 
 class CustomDate (millis: Long) {
 
-    private var date: Date = Date()
-    private var timeOfFinancialMovement = 0L
+    private var date: Calendar = Calendar.getInstance()
+    private var timeOfFinancialMovement: Long
 
     init {
-         this.timeOfFinancialMovement = millis
+        timeOfFinancialMovement = millis
     }
 
-    constructor(date: Date) : this(date.time) {
-        this.date = date
+    constructor(calendarInstance: Calendar = Calendar.getInstance()) : this(calendarInstance.timeInMillis) {
+        this.date = calendarInstance
     }
 
+    fun setDateFromString(date: String) {
+        val partsOfDate = date.split("/")
+        println("setDateFromString: $partsOfDate")
 
-    fun getFormattedDate(locale: Locale): String {
+        this.date.set(partsOfDate[2].toInt(), partsOfDate[1].toInt(), partsOfDate[0].toInt())
+    }
+
+    fun getFormattedDate(): String {
         timeOfFinancialMovement = System.currentTimeMillis()
 
-        return SimpleDateFormat("dd/MM/yyyy", locale).format(timeOfFinancialMovement)
-    }
-
-    fun getMonth(): String {
-        return SimpleDateFormat("dd", Locale("PT", "BR")).format(timeOfFinancialMovement)
+        return SimpleDateFormat("dd/MM/yyyy", Locale.CANADA).format(timeOfFinancialMovement)
     }
 
     fun getDay(): String {
-        return SimpleDateFormat("MM", Locale("PT", "BR")).format(timeOfFinancialMovement)
+        return date.get(Calendar.DAY_OF_MONTH).toString()
     }
 
-    fun getYear():String {
-        return SimpleDateFormat("yyyy", Locale("pt", "BR"))
-            .format(timeOfFinancialMovement)
+    fun getMonth(): String {
+        return date.get(Calendar.MONTH).toString()
     }
 
-    fun dateToMillis(date: String): Long {
-        return Date.parse(date)
+    fun getYear(): String {
+        return date.get(Calendar.YEAR).toString()
     }
 }

@@ -53,10 +53,13 @@
         android:id="@+id/calendarView"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:background="@drawable/parece_card_sup"
+        android:backgroundTint="?android:attr/colorBackground"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:mcv_calendarMode="month"
         app:mcv_tileSize="50dp" />
 
@@ -65,16 +68,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25171" />
+        app:layout_constraintGuide_percent="0.26" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="?android:attr/colorBackground"
+        android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.23" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
