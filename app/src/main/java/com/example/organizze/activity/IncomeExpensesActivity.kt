@@ -104,10 +104,10 @@ class IncomeExpensesActivity : AppCompatActivity() {
                 financialMovement.category = viewCategory.text.toString()
                 financialMovement.description = viewDescription.text.toString()
                 financialMovement.calendar = dateDialog.calendar
-                sqLiteDataBase.saveMovement(financialMovement)
                 // Save on SQLite database
-                DataBase.saveInDataBase(financialMovement)
+                sqLiteDataBase.saveMovement(financialMovement)
                 // Save on Firebase database
+                DataBase.saveInDataBase(financialMovement)
                 DataBase.updateUserInformation(FirebaseConfiguration.getAuthentication().currentUser!!.uid, financialMovement)
                 finish()
             }

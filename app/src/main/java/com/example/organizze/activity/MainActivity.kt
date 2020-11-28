@@ -24,7 +24,7 @@ class MainActivity : IntroActivity(), View.OnClickListener{
         isButtonBackVisible = false
         isButtonNextVisible = false
 
-        addSlide(SimpleSlide.Builder()
+        /*addSlide(SimpleSlide.Builder()
             .title("Organize suas contas")
             .description("Você irá se surpreender")
             .background(android.R.color.holo_green_light)
@@ -50,7 +50,7 @@ class MainActivity : IntroActivity(), View.OnClickListener{
             .image(R.drawable.tres)
             .scrollable(true)
             .build()
-        )
+        )*/
 
         addSlide(FragmentSlide.Builder()
             .fragment(R.layout.intro_cadastro)

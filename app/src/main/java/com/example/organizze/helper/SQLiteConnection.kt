@@ -16,8 +16,7 @@ class SQLiteConnection(context: Context) : SQLiteOpenHelper(context, dbName, nul
         db?.execSQL("CREATE TABLE IF NOT EXISTS $tableName(" +
                 "${FinancialMovement.VALUE_KEY} INTEGER," +
                 "${FinancialMovement.CATEGORY_KEY} TEXT," +
-                "${FinancialMovement.YEAR_KEY} TEXT," +
-                "${FinancialMovement.MONTH_KEY} TEXT," +
+                "${FinancialMovement.YEAR_MONTH_KEY} TEXT," +
                 "${FinancialMovement.DAY_KEY} TEXT," +
                 "${FinancialMovement.DESCRIPTION_KEY} TEXT," +
                 "${FinancialMovement.INCOME_OR_EXPENSE_KEY} VARCHAR(1))")

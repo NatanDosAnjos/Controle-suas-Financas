@@ -13,7 +13,7 @@ import com.example.organizze.adapter.MyAdapter.MyViewHolder
 import com.example.organizze.model.FinancialMovement
 import java.text.DecimalFormat
 
-class MyAdapter(private val list: Array<FinancialMovement>): RecyclerView.Adapter <MyViewHolder> () {
+class MyAdapter(private val list: MutableList<FinancialMovement>): RecyclerView.Adapter <MyViewHolder> () {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.main_adapater_layout, parent, false) as LinearLayout

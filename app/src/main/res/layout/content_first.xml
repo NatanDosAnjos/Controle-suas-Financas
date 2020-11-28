@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.26" />
+        app:layout_constraintGuide_percent="0.25" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainRecyclerView"
@@ -86,6 +86,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.23" />
+        app:layout_constraintGuide_percent="0.22982216" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
