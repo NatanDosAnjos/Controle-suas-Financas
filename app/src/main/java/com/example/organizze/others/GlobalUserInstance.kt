@@ -10,10 +10,12 @@ class GlobalUserInstance{
         @JvmStatic var instance = User()
             set(value) {
             field = value
-            runnable?.run()
+                if (instance.name.isNotBlank()) {
+                    runnable?.run()
+                }
         }
 
-        fun setOnChangeUser(runnable: Runnable) {
+        fun setOnChangeUserInstance(runnable: Runnable) {
             this.runnable = runnable
         }
     }

@@ -1,13 +1,13 @@
-package com.example.organizze.dao
+package com.example.organizze.database.dao
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import com.example.organizze.activity.FirstActivity.Companion.listOfFinancialMovement
-import com.example.organizze.helper.SQLiteConnection
+import com.example.organizze.database.SQLiteConnection
 import com.example.organizze.model.FinancialMovement
 
-class SQLiteDAO(context: Context) : FinancialMovementDAO {
+class SQLiteDAO(context: Context, userId: String) : FinancialMovementDAO {
 
     companion object {
         private var instanceAlreadyExist = false
@@ -16,15 +16,24 @@ class SQLiteDAO(context: Context) : FinancialMovementDAO {
         @JvmStatic
         private var connection: SQLiteConnection? = null
             set(value) {
-                if (!instanceAlreadyExist && value != null) {
+                if (!instanceAlreadyExist) {
                     field = value
-                    instanceAlreadyExist = true
+                    if(value != null) {
+                        instanceAlreadyExist = true
+                    }
                 }
             }
+
+        @JvmStatic
+        fun disconnect() {
+            connection = null
+            instanceAlreadyExist = false
+            listOfFinancialMovement.clear()
+        }
     }
 
     init {
-        connection = SQLiteConnection(context)
+        connection = SQLiteConnection(context, userId)
     }
 
     override fun saveMovement(financialMovement: FinancialMovement) : Long {
@@ -38,6 +47,7 @@ class SQLiteDAO(context: Context) : FinancialMovementDAO {
         contentValues.put(FinancialMovement.DESCRIPTION_KEY, financialMovement.description)
         contentValues.put(FinancialMovement.INCOME_OR_EXPENSE_KEY, financialMovement.incomeOrExpense)
         val thisReturn = writable?.insert(connection?.tableName, null, contentValues)?: 0L
+        println("Salvando na tabela: ${connection?.tableName}")
         writable?.close()
         return thisReturn
 
@@ -61,8 +71,10 @@ class SQLiteDAO(context: Context) : FinancialMovementDAO {
                 null,
                 setOrder)               // Ordena os dados em ordem definida
 
+
         } catch (e: Exception) {
-            e.printStackTrace()
+            connection?.createTable(connection!!.writableDatabase)
+            listOfFinancialMovement.clear()
         }
 
         if (cursor != null) {
@@ -96,8 +108,13 @@ class SQLiteDAO(context: Context) : FinancialMovementDAO {
         cursor?.close()
     }
 
-    override fun deleteMovement(financialMovement: FinancialMovement) {
+    override fun deleteMovement(financialMovement: FinancialMovement): Boolean {
+        val writable = connection!!.writableDatabase
+        val where = "${FinancialMovement.DESCRIPTION_KEY} LIKE ?"
+        val args = arrayOf(financialMovement.description)
+        val result = writable.delete(connection!!.tableName, where, args)
 
+        return result > 0
     }
 
     override fun updateMovement(old: FinancialMovement, new: FinancialMovement) {

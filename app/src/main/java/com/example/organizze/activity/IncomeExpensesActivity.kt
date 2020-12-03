@@ -11,9 +11,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.example.organizze.R
 import com.example.organizze.config.FirebaseConfiguration
-import com.example.organizze.dao.SQLiteDAO
-import com.example.organizze.database.DataBase
+import com.example.organizze.database.dao.SQLiteDAO
+import com.example.organizze.database.dao.FirebaseDAO
 import com.example.organizze.model.FinancialMovement
+import com.example.organizze.others.GlobalUserInstance
 import com.example.organizze.others.MyDateDialog
 import com.example.organizze.others.getLocale
 import com.example.organizze.others.showSnackbar
@@ -48,9 +49,10 @@ class IncomeExpensesActivity : AppCompatActivity() {
         viewDescription = findViewById(R.id.editTextDescription)
         fab = findViewById(R.id.FAB_Ok)
         financialMovement = FinancialMovement()
-        financialMovement.userId = FirebaseConfiguration.getAuthentication().currentUser!!.uid
-        sqLiteDataBase = SQLiteDAO(this)
+        financialMovement.userId = FirebaseConfiguration.getAuthentication().currentUser?.uid.toString()
+        sqLiteDataBase = SQLiteDAO(this, GlobalUserInstance.instance.userId)
         dateDialog = MyDateDialog(this, R.id.editTextDate)
+
 
 
         initViewValueFeatures(viewValue, viewTextValue)
@@ -103,12 +105,13 @@ class IncomeExpensesActivity : AppCompatActivity() {
             } else {
                 financialMovement.category = viewCategory.text.toString()
                 financialMovement.description = viewDescription.text.toString()
-                financialMovement.calendar = dateDialog.calendar
+                financialMovement.customDate = dateDialog.customDate
                 // Save on SQLite database
                 sqLiteDataBase.saveMovement(financialMovement)
                 // Save on Firebase database
-                DataBase.saveInDataBase(financialMovement)
-                DataBase.updateUserInformation(FirebaseConfiguration.getAuthentication().currentUser!!.uid, financialMovement)
+                val firebaseDao = FirebaseDAO()
+                firebaseDao.saveInDataBase(financialMovement)
+                firebaseDao.updateUserInformation(FirebaseConfiguration.getAuthentication().currentUser!!.uid, financialMovement)
                 finish()
             }
         }

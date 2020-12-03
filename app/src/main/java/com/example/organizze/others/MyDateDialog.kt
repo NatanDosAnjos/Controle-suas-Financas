@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import android.widget.EditText
 import com.example.organizze.R
+import com.example.organizze.helper.CustomDate
 import kotlinx.android.synthetic.main.content_income_expenses.*
 import java.util.*
 import java.util.Calendar.*
@@ -15,17 +16,14 @@ import java.util.Calendar.*
 
 class MyDateDialog(private val context: Context, editText: Int) : View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
-    var calendar: Calendar = getInstance(Locale.getDefault())
-        private set
-    private var myDay = calendar[DAY_OF_MONTH]
-    private var myMonth = calendar[MONTH]
-    private var myYear = calendar[YEAR]
+    private var calendar: Calendar = getInstance(Locale.getDefault())
+    var customDate = CustomDate(calendar)
     private val activity = context as Activity
     private val realEditText = activity.findViewById<EditText>(editText)
     private var dialog: DatePickerDialog
 
     init {
-        dialog = DatePickerDialog(context,this , myYear, myMonth, myDay)
+        dialog = DatePickerDialog(context,this , calendar[YEAR], calendar[MONTH], calendar[DAY_OF_MONTH])
         realEditText.setOnClickListener(this)
         realEditText.showSoftInputOnFocus = false
         realEditText.isCursorVisible = false
@@ -43,83 +41,34 @@ class MyDateDialog(private val context: Context, editText: Int) : View.OnClickLi
     private fun choseDialogTheme() {
         dialog = when {
             activity.checkBoxIncome.isChecked -> {
-                DatePickerDialog(context, R.style.DateDialogIncome, this, myYear, myMonth, myDay)
+                DatePickerDialog(context, R.style.DateDialogIncome, this, calendar[YEAR], calendar[MONTH], calendar[DAY_OF_MONTH])
             }
             activity.checkBoxExpense.isChecked -> {
-                DatePickerDialog(context, R.style.DateDialogExpense, this, myYear, myMonth, myDay)
+                DatePickerDialog(context, R.style.DateDialogExpense, this, calendar[YEAR], calendar[MONTH], calendar[DAY_OF_MONTH])
             }
             else -> {
-                DatePickerDialog(context, R.style.DateDialogNothing, this, myYear, myMonth, myDay)
+                DatePickerDialog(context, R.style.DateDialogNothing, this, calendar[YEAR], calendar[MONTH], calendar[DAY_OF_MONTH])
             }
         }
     }
 
+    private fun updateViewText() {
+        realEditText.setText(customDate.getFormattedDate())
+    }
 
+
+    /*--------------------------------------- LISTENERS ----------------------------------------*/
     override fun onClick(v: View) {
         choseDialogTheme()
         dialog.show()
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, day: Int) {
-        myDay = day
-        calendar[DAY_OF_MONTH] = myDay
+        calendar[DAY_OF_MONTH] = day
+        calendar[MONTH] = month
+        calendar[YEAR] = year
+        customDate = CustomDate(calendar)
 
-        myMonth = month+1
-        calendar[MONTH] = myMonth
-
-        myYear = year
-        calendar[YEAR] = myYear
         updateViewText()
     }
-
-    private fun updateViewText() {
-        val dateString = "${calendar[DAY_OF_MONTH]}/${calendar[MONTH]}/${calendar[YEAR]}"
-        realEditText.setText(dateString)
-    }
 }
-
-
-
-
-/*public class MyDateDialog implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
-
-    EditText _editText;
-    private int _day;
-    private int _month;
-    private int _birthYear;
-    private Context _context;
-
-    public MyDateDialog(Context context, int editTextViewID)
-    {
-        Activity act = (Activity)context;
-        this._editText = (EditText)act.findViewById(editTextViewID);
-        this._editText.setOnClickListener(this);
-        this._context = context;
-    }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        _birthYear = year;
-        _month = monthOfYear;
-        _day = dayOfMonth;
-        updateDisplay();
-    }
-    @Override
-    public void onClick(View v) {
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-
-        DatePickerDialog dialog = new DatePickerDialog(_context, this,
-                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH));
-        dialog.show();
-
-    }
-
-    // updates the date in the birth date EditText
-    private void updateDisplay() {
-
-        _editText.setText(new StringBuilder()
-                // Month is 0 based so add 1
-                .append(_day).append("/").append(_month + 1).append("/").append(_birthYear).append(" "));
-    }
-}*/

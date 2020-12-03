@@ -1,4 +1,4 @@
-package com.example.organizze.adapter
+package com.example.organizze.recycler.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,9 +9,8 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.organizze.R
-import com.example.organizze.adapter.MyAdapter.MyViewHolder
+import com.example.organizze.recycler.adapter.MyAdapter.MyViewHolder
 import com.example.organizze.model.FinancialMovement
-import java.text.DecimalFormat
 
 class MyAdapter(private val list: MutableList<FinancialMovement>): RecyclerView.Adapter <MyViewHolder> () {
 
@@ -44,5 +43,6 @@ class MyAdapter(private val list: MutableList<FinancialMovement>): RecyclerView.
         val value = itemView.findViewById<TextView>(R.id.valueAdapter)!!
         val category = itemView.findViewById<TextView>(R.id.categoryAdapter)!!
         val context: Context = itemView.context
+
     }
 }

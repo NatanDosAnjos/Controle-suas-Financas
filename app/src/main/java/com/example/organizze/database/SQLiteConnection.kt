@@ -1,4 +1,4 @@
-package com.example.organizze.helper
+package com.example.organizze.database
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -8,11 +8,10 @@ import com.example.organizze.model.FinancialMovement
 const val dbName = "Oraganizze.db"
 const val version = 1
 
-class SQLiteConnection(context: Context) : SQLiteOpenHelper(context, dbName, null, version) {
+class SQLiteConnection(context: Context, val tableName: String) : SQLiteOpenHelper(context, dbName, null, version) {
 
-    val tableName = "Financial_Movement"
 
-    override fun onCreate(db: SQLiteDatabase?) {
+    fun createTable(db: SQLiteDatabase?) {
         db?.execSQL("CREATE TABLE IF NOT EXISTS $tableName(" +
                 "${FinancialMovement.VALUE_KEY} INTEGER," +
                 "${FinancialMovement.CATEGORY_KEY} TEXT," +
@@ -24,9 +23,12 @@ class SQLiteConnection(context: Context) : SQLiteOpenHelper(context, dbName, nul
         Log.i("DB", "OnCreateDb")
     }
 
+    override fun onCreate(db: SQLiteDatabase?) {
+        createTable(db)
+    }
+
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-
 
     }
 }

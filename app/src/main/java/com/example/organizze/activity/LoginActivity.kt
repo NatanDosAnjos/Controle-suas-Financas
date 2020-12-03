@@ -1,19 +1,20 @@
 package com.example.organizze.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.example.organizze.R
 import com.example.organizze.config.FirebaseConfiguration
+import com.example.organizze.helper.SharedPrefsUserId
+import com.example.organizze.model.User
 import com.example.organizze.others.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import kotlinx.android.synthetic.main.activity_login.*
-import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
 
@@ -40,9 +41,12 @@ class LoginActivity : AppCompatActivity() {
                     auth = FirebaseConfiguration.getAuthentication()
 
                     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-
-
                         if (it.isSuccessful) {
+                            val user = User()
+                            user.email = email
+                            user.userId = FirebaseConfiguration.getAuthentication().currentUser?.uid ?: ""
+                            SharedPrefsUserId(this).saveData(user.userId)
+                            println("Logado com o ID: ${user.userId}")
                             openFirstActivity()
 
                         } else {

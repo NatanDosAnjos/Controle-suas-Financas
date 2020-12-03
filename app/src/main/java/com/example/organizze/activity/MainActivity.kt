@@ -1,17 +1,15 @@
 package com.example.organizze.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.example.organizze.R
+import com.example.organizze.config.FirebaseConfiguration
 import com.google.firebase.auth.FirebaseAuth
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide
-import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
-import android.content.Intent
-import android.view.View
-import com.example.organizze.R
-import com.example.organizze.config.FirebaseConfiguration
-import com.example.organizze.activity.LoginActivity as LoginActivity
 
 
 class MainActivity : IntroActivity(), View.OnClickListener{
@@ -60,19 +58,16 @@ class MainActivity : IntroActivity(), View.OnClickListener{
             .canGoBackward(false)
             .build()
         )
-    }
 
-    override fun onStart() {
-        super.onStart()
         startFirstActivityIfHasALoggedUser()
     }
 
 
     private fun startFirstActivityIfHasALoggedUser() {
-        auth = FirebaseConfiguration.getAuthentication()
-        if(auth.currentUser != null) {
+        //auth = FirebaseConfiguration.getAuthentication()
+       // if(auth.currentUser != null) {
             openFirstActivity()
-        }
+       // }
     }
 
     private fun openFirstActivity() {

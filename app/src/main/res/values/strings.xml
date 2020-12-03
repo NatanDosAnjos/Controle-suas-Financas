@@ -1,69 +1,64 @@
 <resources>
-    <string name="app_name">Organizze</string>
+    <string name="app_name">Controle de Despesas</string>
     <string name="email">Email</string>
     <string name="password">Senha</string>
     <string name="name">Nome</string>
     <string name="btnCreateAccount">Criar Conta</string>
 
     <!-- Strings used for activity_first -->
-    <string name="title_activity_first" translatable="false">FirstActivity</string>
-    <string name="salutation">Olá</string>
     <string name="total_balance">Saldo total</string>
+    <string name="title_activity_first">Financeiro</string>
+    <string name="salutation">Olá</string>
 
 
     <!-- Strings  used for activity_login -->
     <string name="dont_have_account">Não tenho uma conta!</string>
-    <string name="login">Entrar</string>
     <string name="logging_in">Entrando na Conta</string>
+    <string name="login">Entrar</string>
 
 
     <!-- Strings  used for activity_singUp -->
     <string name="text_of_sign_up_activity">Crie sua conta grátis</string>
-    <string name="sign_up">Cadastrar</string>
     <string name="already_have_an_account">Já possuo uma conta!</string>
+    <string name="sign_up">Cadastrar</string>
 
 
     <!-- Strings for Menu -->
-    <string name="logout">Sair</string>
     <string name="settings">Configurações</string>
+    <string name="logout">Sair</string>
 
 
     <!-- Strings used for activity_income_expense -->
     <string name="date_example" translatable="false">ex: 27/06/2020</string>
-    <string name="description">Descrição</string>
     <string name="string_value">ex: 29,90</string>
-    <string name="income">Receita</string>
-    <string name="expense">Despesa</string>
+    <string name="description">Descrição</string>
     <string name="category">Categoria</string>
+    <string name="expense">Despesa</string>
+    <string name="income">Receita</string>
 
 
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label" translatable="false">First Fragment</string>
-    <string name="second_fragment_label" translatable="false">Second Fragment</string>
-    <string name="next" translatable="false">Next</string>
     <string name="previous" translatable="false">Previous</string>
-
-    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
-    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
-    <string name="text_of_login_activity">Acesse sua Conta</string>
+    <string name="next" translatable="false">Next</string>
 
 
     <!-- Toast Texts -->
     <string name="select_financial_movement_type">Selecione o tipo da movimentação</string>
-    <string name="type_email">Digite o email</string>
     <string name="type_password">Digite a senha</string>
     <string name="type_value">Informe o valor</string>
+    <string name="type_email">Digite o email</string>
     <string name="type_date">Informe a data</string>
 
         <!-- Toast Login Activity -->
-        <string name="unregistered_user">Usuário não cadastrado</string>
-        <string name="login_error">Erro de Login</string>
-        <string name="wrong_email_or_password">Email ou senha incorretos</string>
+    <string name="wrong_email_or_password">Email ou senha incorretos</string>
+    <string name="unregistered_user">Usuário não cadastrado</string>
+    <string name="text_of_login_activity">Acesse sua Conta</string>
+    <string name="login_error">Erro de Login</string>
 
         <!-- Toast Cadastro Activity -->
-        <string name="type_your_name">Digite seu nome</string>
-        <string name="email_already_registered">Email já cadastrado</string>
-        <string name="invalid_email_format">Formato de email inválido</string>
-        <string name="at_least_six_characters">A senha deve ter ao menos 6 caracteres</string>
-        <string name="error_to_register_user">Erro ao cadastrar usuário</string>
+    <string name="at_least_six_characters">A senha deve ter ao menos 6 caracteres</string>
+    <string name="error_to_register_user">Erro ao cadastrar usuário</string>
+    <string name="invalid_email_format">Formato de email inválido</string>
+    <string name="email_already_registered">Email já cadastrado</string>
+    <string name="type_your_name">Digite seu nome</string>
 </resources>

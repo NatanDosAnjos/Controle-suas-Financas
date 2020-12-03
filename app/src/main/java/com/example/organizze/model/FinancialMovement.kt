@@ -1,5 +1,6 @@
 package com.example.organizze.model
 
+import com.example.organizze.helper.CustomDate
 import com.google.firebase.database.Exclude
 import java.util.*
 
@@ -16,14 +17,15 @@ class FinancialMovement {
 
     }
 
-    @get:Exclude var calendar: Calendar = Calendar.getInstance()
-        set(value) {
+    @get:Exclude var customDate = CustomDate(Calendar.getInstance())
+        set (value) {
+            yearMonth = value.getYearMonth()
+            month = value.monthStartedAtOne.toString()
+            year = value.year
+            day = value.day
             field = value
-            day = calendar[Calendar.DAY_OF_MONTH].toString()
-            month = (calendar[Calendar.MONTH]).toString()
-            year = calendar[Calendar.YEAR].toString()
-            yearMonth = getMonthAndYearString()
         }
+
     var incomeOrExpense = "N"
     var value = 0.0
     var category = ""
@@ -34,21 +36,8 @@ class FinancialMovement {
         private set
     var day = ""
     var yearMonth = ""
-        set(value) {
-            field = value
-            val array = value.split("/")
-            if (array.size > 1) {
-                year = array[0]
-                month = array[1]
-            }
-        }
+
     @get:Exclude var userId = ""
-
-
-    @Exclude
-    private fun getMonthAndYearString(): String {
-        return "$year/$month"
-    }
 
     @Exclude
     fun isExpense(): Boolean {

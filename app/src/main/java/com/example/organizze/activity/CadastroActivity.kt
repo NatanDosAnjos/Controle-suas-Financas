@@ -9,7 +9,8 @@ import android.widget.TextView
 import com.example.organizze.others.*
 import com.example.organizze.R
 import com.example.organizze.config.FirebaseConfiguration
-import com.example.organizze.database.DataBase
+import com.example.organizze.database.dao.FirebaseDAO
+import com.example.organizze.helper.SharedPrefsUserId
 import com.example.organizze.model.User
 import com.google.firebase.auth.*
 
@@ -28,8 +29,9 @@ class CadastroActivity : AppCompatActivity() {
         emailField = findViewById(R.id.editTextEmail)
         passwordField = findViewById(R.id.editTextPassword)
 
-        findViewById<Button>(R.id.btnSignUp).setOnClickListener {
+        startFirstActivityIfHasALoggedUser()
 
+        findViewById<Button>(R.id.btnSignUp).setOnClickListener {
             val name = nameField.text.toString()
             val email = emailField.text.toString()
             val password = passwordField.text.toString()
@@ -59,15 +61,17 @@ class CadastroActivity : AppCompatActivity() {
             finish()
         }
     }
-
+  //Mostrar valores vindos do firebase
     private fun registerUser(user: User) {
         val auth = FirebaseConfiguration.getAuthentication()
+        val firebaseDAO = FirebaseDAO()
 
             auth.createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener{
             if (it.isSuccessful) {
+                // Salva o novo Usuário na base de Dados do Firebase
                 user.userId = FirebaseConfiguration.getAuthentication().currentUser!!.uid
-                DataBase.saveInDataBase(user, User.FIRST_CHILD)
-
+                firebaseDAO.saveInDataBase(user, User.FIRST_CHILD)
+                SharedPrefsUserId(this).saveData(user.userId)
                 startActivity(Intent(this, FirstActivity::class.java))
                 finish()
 
@@ -95,5 +99,18 @@ class CadastroActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun startFirstActivityIfHasALoggedUser() {
+         if(FirebaseConfiguration.getAuthentication().currentUser != null) {
+            openFirstActivity()
+         } else {
+             GlobalUserInstance.instance = User()
+         }
+    }
+
+    private fun openFirstActivity() {
+        startActivity(Intent(this, FirstActivity::class.java))
+        finish()
     }
 }

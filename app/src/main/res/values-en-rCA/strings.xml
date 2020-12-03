@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Organizze</string>
+    <string name="app_name">Finance Control</string>
     <string name="sign_up">Sign up</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
@@ -34,4 +34,5 @@
     <string name="logging_in">Loggin in Account</string>
     <string name="salutation">Hi</string>
     <string name="total_balance">Total balance</string>
+    <string name="title_activity_first">@string/app_name</string>
 </resources>

@@ -1,43 +1,20 @@
 package com.example.organizze.helper
 
-import java.text.SimpleDateFormat
 import java.util.*
 
-class CustomDate (millis: Long) {
+class CustomDate (calendar: Calendar) {
+    private val myCalendar = calendar
+    var day     = myCalendar[Calendar.DAY_OF_MONTH].toString()
+    var year    = myCalendar[Calendar.YEAR].toString()
+    private var monthStartedAtZero = myCalendar[Calendar.MONTH]
 
-    private var date: Calendar = Calendar.getInstance()
-    private var timeOfFinancialMovement: Long
-
-    init {
-        timeOfFinancialMovement = millis
-    }
-
-    constructor(calendarInstance: Calendar = Calendar.getInstance()) : this(calendarInstance.timeInMillis) {
-        this.date = calendarInstance
-    }
-
-    fun setDateFromString(date: String) {
-        val partsOfDate = date.split("/")
-        println("setDateFromString: $partsOfDate")
-
-        this.date.set(partsOfDate[2].toInt(), partsOfDate[1].toInt(), partsOfDate[0].toInt())
-    }
+    var monthStartedAtOne = monthStartedAtZero+1
 
     fun getFormattedDate(): String {
-        timeOfFinancialMovement = System.currentTimeMillis()
-
-        return SimpleDateFormat("dd/MM/yyyy", Locale.CANADA).format(timeOfFinancialMovement)
+        return "${myCalendar[Calendar.DAY_OF_MONTH]}/$monthStartedAtOne/${myCalendar[Calendar.YEAR]}"
     }
 
-    fun getDay(): String {
-        return date.get(Calendar.DAY_OF_MONTH).toString()
-    }
-
-    fun getMonth(): String {
-        return date.get(Calendar.MONTH).toString()
-    }
-
-    fun getYear(): String {
-        return date.get(Calendar.YEAR).toString()
+    fun getYearMonth(): String {
+        return "$year/$monthStartedAtOne"
     }
 }

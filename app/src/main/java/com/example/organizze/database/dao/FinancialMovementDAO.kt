@@ -1,4 +1,4 @@
-package com.example.organizze.dao
+package com.example.organizze.database.dao
 
 import com.example.organizze.model.FinancialMovement
 
@@ -8,7 +8,7 @@ interface FinancialMovementDAO {
 
     fun getMovements(yearMonth: String, notifyAdapterRunnable: Runnable?)
 
-    fun deleteMovement(financialMovement: FinancialMovement)
+    fun deleteMovement(financialMovement: FinancialMovement) : Boolean
 
     fun updateMovement(old: FinancialMovement, new: FinancialMovement)
 }

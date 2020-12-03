@@ -5,23 +5,24 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.CalendarView
+import android.widget.AdapterView
 import android.widget.TextView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.organizze.adapter.MyAdapter
 import com.example.organizze.R
+import com.example.organizze.recycler.adapter.MyAdapter
 import com.example.organizze.config.FirebaseConfiguration
-import com.example.organizze.dao.SQLiteDAO
-import com.example.organizze.database.DataBase
-import com.example.organizze.helper.SQLiteConnection
+import com.example.organizze.database.dao.FirebaseDAO
+import com.example.organizze.database.dao.SQLiteDAO
+import com.example.organizze.helper.SharedPrefsUserId
 import com.example.organizze.model.FinancialMovement
+import com.example.organizze.model.User
 import com.example.organizze.others.GlobalUserInstance
 import com.example.organizze.others.getLocale
-import com.example.organizze.others.showToast
-import com.google.android.material.snackbar.Snackbar
+import com.example.organizze.recycler.listener.RecyclerItemClickListener
+import com.example.organizze.recycler.listener.RecyclerItemClickListener.OnItemClickListener
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.text.NumberFormat
 
@@ -32,10 +33,9 @@ class FirstActivity : AppCompatActivity() {
     }
 
     // Decalaração de atributos
-    lateinit var viewSalutation: TextView
+    private lateinit var viewSalutation: TextView
     private lateinit var viewInformation: TextView
-    var uidFromFirebase: String? = null
-    lateinit var sqlDataBase: SQLiteDAO
+    private lateinit var sqlDataBase: SQLiteDAO
     private val myAdapter = MyAdapter(listOfFinancialMovement)
     private lateinit var yearMonth: String
     private lateinit var calendar: MaterialCalendarView
@@ -45,26 +45,24 @@ class FirstActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
         setSupportActionBar(findViewById(R.id.toolbar))
-        sqlDataBase = SQLiteDAO(this)
 
+        connectOnSqLiteDb()
 
         // O Método estático getAuthentication() é um singleton da referência do Firebase Auth
-        // Captura o UID do usuário logado no momento e o coloco em uma variável que seja visível por toda a classe
+        // Captura o UID do usuário logado no momento e o coloca em uma variável que seja visível por toda a classe
         // Essa variável será passada como parâmetro para buscar os dados do usuário correto no banco de dados na função OnStart()
-        uidFromFirebase = FirebaseConfiguration.getAuthentication().currentUser?.uid
-
+        val uidFromFirebase = FirebaseConfiguration.getAuthentication().currentUser?.uid
         // Lẽ os dados do usuário especificado pelo uid e atribui a instancia da classe User referente na variável "instance" da classe GlobalUserInstance
-        DataBase.readUserInformationInDataBase(uidFromFirebase!!)
+        val firebaseDao = FirebaseDAO()
+        firebaseDao.readUserInformationInDataBase(uidFromFirebase!!)
 
-        //Define o listener listener para a propriedade instace
-        GlobalUserInstance.setOnChangeUser(kotlinx.coroutines.Runnable {
+        //Define o listener listener para a propriedade instance
+        GlobalUserInstance.setOnChangeUserInstance(kotlinx.coroutines.Runnable {
             val salutation = "${getString(R.string.salutation)}, ${GlobalUserInstance.instance.name}"
             viewSalutation.text = salutation
-            //Mostrar valores vindos do firebase
-            //showValue(viewInformation, GlobalUserInstance.instance.getBalance())
-            findViewById<TextView>(R.id.textViewBalance).text = getString(R.string.total_balance)
         })
 
+        findViewById<TextView>(R.id.textViewBalance).text = getString(R.string.total_balance)
         calendar = findViewById(R.id.calendarView)
         viewSalutation = findViewById(R.id.textViewSalutation)
         viewInformation = findViewById(R.id.textViewInformation)
@@ -83,10 +81,41 @@ class FirstActivity : AppCompatActivity() {
 
         val myLayoutManager = LinearLayoutManager(this)
         findViewById<RecyclerView>(R.id.mainRecyclerView).apply {
-           layoutManager = myLayoutManager
-           adapter = myAdapter
-        }
+            layoutManager = myLayoutManager
+            adapter = myAdapter
+            addOnItemTouchListener(
+                RecyclerItemClickListener(applicationContext, this, object : OnItemClickListener {
+                    override fun onItemClick(view: View?, position: Int) {
+                        println("Clicado na posição: $position")
+                    }
 
+                    override fun onItemClick(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+                        if(sqlDataBase.deleteMovement(listOfFinancialMovement[position])) {
+                            listOfFinancialMovement.removeAt(position)
+                            changeTotalBalance()
+                            adapter?.notifyItemRemoved(position)
+                        }
+
+                    }
+                })
+            )
+
+        }
+    }
+
+    private fun connectOnSqLiteDb() {
+        val userIdByPrefs =  SharedPrefsUserId(this).getUserId()
+        println("$userIdByPrefs pra conectar no db FirstActivity")
+        sqlDataBase = SQLiteDAO(this, userIdByPrefs!!)
     }
 
     private fun changeTotalBalance() {
@@ -106,6 +135,7 @@ class FirstActivity : AppCompatActivity() {
         val currentDate = calendar.currentDate
         yearMonth = "${currentDate.year}/${ currentDate.month+1 }"
         sqlDataBase.getMovements(yearMonth, Runnable { myAdapter.notifyDataSetChanged() })
+        changeTotalBalance()
     }
 
 
@@ -119,7 +149,10 @@ class FirstActivity : AppCompatActivity() {
         when(item.itemId) {
             R.id.logout_item -> {
                 FirebaseConfiguration.getAuthentication().signOut()
-                startActivity( Intent(this, LoginActivity::class.java))
+                startActivity( Intent(this, LoginActivity::class.java) )
+                GlobalUserInstance.instance = User()
+                SQLiteDAO.disconnect()
+                myAdapter.notifyDataSetChanged()
                 finish()
             }
         }
