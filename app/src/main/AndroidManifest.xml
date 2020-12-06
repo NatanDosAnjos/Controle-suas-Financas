@@ -34,10 +34,6 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="userPortrait"/>
 
-        <activity
-            android:screenOrientation="userPortrait"
-            android:name=".activity.MainActivity"/>
-
     </application>
 
 </manifest>

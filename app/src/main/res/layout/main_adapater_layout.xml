@@ -5,8 +5,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingStart="16dp"
-    android:paddingTop="32dp"
-    android:paddingEnd="16dp">
+    android:paddingTop="24dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             tools:text="Description" />
 
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="textEnd"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             tools:text="-320.6" />
     </LinearLayout>
@@ -37,5 +38,6 @@
         android:id="@+id/categoryAdapter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="12sp"
         tools:text="Category" />
 </LinearLayout>
