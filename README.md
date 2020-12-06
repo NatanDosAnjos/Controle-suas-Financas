@@ -1,6 +1,6 @@
 <!-- LOGO -->
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![][product-screenshot]](https://example.com)
 
 
 <!-- NOME DO PROJETO -->
@@ -37,12 +37,12 @@ Tudo isso de forma:
 - [x] Criar Tela Principal
 - [x] Criar Tela de adição de novas movimentações Financeiras
 - [x] Login com Email e Senha
-- [] Criar Acttivity para edição de itens da lista
-- [] Implementar Arquitetura MVP
-- [] Implementar possibilidade de sincronização dos dados com a nuvem
-- [] Adicionar Google Auth como método de Login
-- [] Refatoração de Código
-- [] Adição de Animações de Transição Personalizadas
+- [ ] Criar Acttivity para edição de itens da lista
+- [ ] Implementar Arquitetura MVP
+- [ ] Implementar possibilidade de sincronização dos dados com a nuvem
+- [ ] Adicionar Google Auth como método de Login
+- [ ] Refatoração de Código
+- [ ] Adição de Animações de Transição Personalizadas
 
 
 
