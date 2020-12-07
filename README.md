@@ -23,7 +23,6 @@ Tudo isso de forma:
 
 * Em Breve na Play Store
 
-### ScreenShots
 
 | Tela inicial | Tela de Novas Movimentações |
 |--------------|-----------------------------|
