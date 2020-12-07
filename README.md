@@ -1,7 +1,5 @@
 <!-- LOGO -->
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 
 <!-- NOME DO PROJETO -->
 ## Controle suas Finanças
@@ -37,12 +35,12 @@ Tudo isso de forma:
 - [x] Criar Tela Principal
 - [x] Criar Tela de adição de novas movimentações Financeiras
 - [x] Login com Email e Senha
-- [] Criar Acttivity para edição de itens da lista
-- [] Implementar Arquitetura MVP
-- [] Implementar possibilidade de sincronização dos dados com a nuvem
-- [] Adicionar Google Auth como método de Login
-- [] Refatoração de Código
-- [] Adição de Animações de Transição Personalizadas
+- [ ] Criar Acttivity para edição de itens da lista
+- [ ] Implementar Arquitetura MVP
+- [ ] Implementar possibilidade de sincronização dos dados com a nuvem
+- [ ] Adicionar Google Auth como método de Login
+- [ ] Refatoração de Código
+- [ ] Adição de Animações de Transição Personalizadas
 
 
 
@@ -50,5 +48,4 @@ Tudo isso de forma:
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/natanael-sousa-94337b119
-[product-screenshot]: images/screenshot.png
 
