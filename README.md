@@ -1,7 +1,5 @@
 <!-- LOGO -->
 
-[![Logo][product-screenshot]]
-
 
 <!-- NOME DO PROJETO -->
 ## Controle suas Finanças
