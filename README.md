@@ -14,7 +14,6 @@ Tudo isso de forma:
 2. Prática  
 3. Intuitiva
 
-
 ### Pré requisitos
 
 * Android 7+ (Nougat)  
@@ -24,11 +23,12 @@ Tudo isso de forma:
 
 * Em Breve na Play Store
 
+### ScreenShots
 
-<!-- CONTATO -->
-### Contato
+| Tela inicial | Tela de Novas Movimentações |
+|--------------|-----------------------------|
+| <img src="https://github.com/NatanDosAnjos/Organize-Despesas/blob/master/Arquivos-para-o-Readme/Tela%20Principal.gif" width="250" height="420" /> | <img src="https://github.com/NatanDosAnjos/Organize-Despesas/blob/master/Arquivos-para-o-Readme/Tela%20de%20Adicao.gif" width="250" height="420" /> |
 
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 ---
 
@@ -50,3 +50,9 @@ Tudo isso de forma:
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/natanael-sousa-94337b119
 
+---
+
+<!-- CONTATO -->
+### Contato
+
+[![LinkedIn][linkedin-shield]][linkedin-url]
