@@ -1,5 +1,5 @@
 
-<img src="https://github.com/NatanDosAnjos/Organize-Despesas/blob/master/Arquivos%20para%20o%20Readme/um.png" width="250" height="250" />
+<img src="https://github.com/NatanDosAnjos/Organize-Despesas/blob/master/Arquivos-para-o-Readme/logo.png" width="250" height="250" />
 
 
 <!-- NOME DO PROJETO -->
