@@ -48,5 +48,4 @@ Tudo isso de forma:
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/natanael-sousa-94337b119
-[product-screenshot]: Organize-Despesas/Arquivos para o Readme/um.png
 
