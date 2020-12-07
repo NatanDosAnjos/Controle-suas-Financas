@@ -1,6 +1,6 @@
 <!-- LOGO -->
 
-[![Logo][product-screenshot]](https://example.com)
+[![Logo][product-screenshot]]
 
 
 <!-- NOME DO PROJETO -->
