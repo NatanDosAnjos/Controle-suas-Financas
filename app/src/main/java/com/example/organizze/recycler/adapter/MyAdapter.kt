@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.organizze.R
 import com.example.organizze.recycler.adapter.MyAdapter.MyViewHolder
 import com.example.organizze.model.FinancialMovement
+import com.example.organizze.others.getLocale
+import java.text.NumberFormat
 
-class MyAdapter(private val list: MutableList<FinancialMovement>): RecyclerView.Adapter <MyViewHolder> () {
+class MyAdapter(private val context: Context, private val list: MutableList<FinancialMovement>): RecyclerView.Adapter <MyViewHolder> () {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.main_adapater_layout, parent, false) as LinearLayout
@@ -29,12 +31,18 @@ class MyAdapter(private val list: MutableList<FinancialMovement>): RecyclerView.
         }
 
         holder.description.text = list[position].description
-        holder.value.text = actualValue.toString()
+        holder.value.text = showValue(actualValue)
         holder.category.text = list[position].category
     }
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    private fun showValue(value: Double): String {
+        val currentLocale = getLocale(context.resources)
+        val toFormatValue = NumberFormat.getNumberInstance(currentLocale)
+        return toFormatValue.format(value)
     }
 
 

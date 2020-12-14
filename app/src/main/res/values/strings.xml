@@ -11,6 +11,13 @@
     <string name="salutation">Olá</string>
 
 
+    <!-- Strings used on item delete Dialog-->
+    <string name="delete_dialog_title">Excluir Movimentação Financeira</string>
+    <string name="delete_dialog_message_part1">Deseja excluir</string>
+    <string name="delete_dialog_message_part2">com o valor de</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
+
     <!-- Strings  used for activity_login -->
     <string name="dont_have_account">Não tenho uma conta!</string>
     <string name="logging_in">Entrando na Conta</string>

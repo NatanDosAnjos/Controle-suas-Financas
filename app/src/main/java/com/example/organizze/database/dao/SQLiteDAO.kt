@@ -6,6 +6,8 @@ import android.database.Cursor
 import com.example.organizze.activity.FirstActivity.Companion.listOfFinancialMovement
 import com.example.organizze.database.SQLiteConnection
 import com.example.organizze.model.FinancialMovement
+import com.example.organizze.others.getLocale
+import java.text.NumberFormat
 
 class SQLiteDAO(context: Context, userId: String) : FinancialMovementDAO {
 

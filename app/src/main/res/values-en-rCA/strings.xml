@@ -35,4 +35,9 @@
     <string name="salutation">Hi</string>
     <string name="total_balance">Total balance</string>
     <string name="title_activity_first">@string/app_name</string>
+    <string name="delete_dialog_title">Delete Financial Movement</string>
+    <string name="delete_dialog_message_part1">Would you like to remove</string>
+    <string name="delete_dialog_message_part2">with the value</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.organizze.R
-import com.example.organizze.recycler.adapter.MyAdapter
 import com.example.organizze.config.FirebaseConfiguration
 import com.example.organizze.database.dao.FirebaseDAO
 import com.example.organizze.database.dao.SQLiteDAO
@@ -20,6 +19,7 @@ import com.example.organizze.model.FinancialMovement
 import com.example.organizze.model.User
 import com.example.organizze.others.GlobalUserInstance
 import com.example.organizze.others.getLocale
+import com.example.organizze.recycler.adapter.MyAdapter
 import com.example.organizze.recycler.listener.RecyclerItemClickListener
 import com.example.organizze.recycler.listener.RecyclerItemClickListener.OnItemClickListener
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,7 +36,7 @@ class FirstActivity : AppCompatActivity() {
     private lateinit var viewSalutation: TextView
     private lateinit var viewInformation: TextView
     private lateinit var sqlDataBase: SQLiteDAO
-    private val myAdapter = MyAdapter(listOfFinancialMovement)
+    private val myAdapter = MyAdapter(this, listOfFinancialMovement)
     private lateinit var yearMonth: String
     private lateinit var calendar: MaterialCalendarView
 
@@ -99,12 +99,23 @@ class FirstActivity : AppCompatActivity() {
                     }
 
                     override fun onLongItemClick(view: View?, position: Int) {
-                        if(sqlDataBase.deleteMovement(listOfFinancialMovement[position])) {
-                            listOfFinancialMovement.removeAt(position)
-                            changeTotalBalance()
-                            adapter?.notifyItemRemoved(position)
+                        val dialog = android.app.AlertDialog.Builder(context)
+                        dialog.setTitle(getString(R.string.delete_dialog_title))
+                        dialog.setIcon(R.drawable.ic_baseline_delete_forever_24)
+                        dialog.setCancelable(true)
+                        val stringPart1 = resources.getString(R.string.delete_dialog_message_part1)
+                        val stringPart2 = resources.getString(R.string.delete_dialog_message_part2)
+                        dialog.setMessage("$stringPart1 ${listOfFinancialMovement[position].description} $stringPart2 " +
+                                "${showValue(listOfFinancialMovement[position].value)} ?")
+                        dialog.setNegativeButton(getString(R.string.no)) { _, _ -> }
+                        dialog.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                            if (sqlDataBase.deleteMovement(listOfFinancialMovement[position])) {
+                                listOfFinancialMovement.removeAt(position)
+                                changeTotalBalance()
+                                adapter?.notifyItemRemoved(position)
+                            }
                         }
-
+                        dialog.show()
                     }
                 })
             )
@@ -127,7 +138,7 @@ class FirstActivity : AppCompatActivity() {
                 total += fm.value
             }
         }
-        showValue(viewInformation, total)
+        viewInformation.text = showValue(total)
     }
 
     override fun onStart() {
@@ -164,9 +175,15 @@ class FirstActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun showValue(myViewValue: TextView, value: Double) {
+    private fun showValue(value: Double, whitDollarSing: Boolean = true): String {
         val currentLocale = getLocale(resources)
-        val toFormatValue = NumberFormat.getCurrencyInstance(currentLocale)
-        myViewValue.text  = toFormatValue.format(value)
+        return if(whitDollarSing) {
+            val toFormatValue = NumberFormat.getCurrencyInstance(currentLocale)
+            toFormatValue.format(value)
+
+        } else {
+            val toFormatValue = NumberFormat.getNumberInstance(currentLocale)
+            toFormatValue.format(value)
+        }
     }
 }
