@@ -13,6 +13,7 @@ class SQLiteConnection(context: Context, val tableName: String) : SQLiteOpenHelp
 
     fun createTable(db: SQLiteDatabase?) {
         db?.execSQL("CREATE TABLE IF NOT EXISTS $tableName(" +
+                "${FinancialMovement.ID_KEY} INTEGER primary key autoincrement," +
                 "${FinancialMovement.VALUE_KEY} INTEGER," +
                 "${FinancialMovement.CATEGORY_KEY} TEXT," +
                 "${FinancialMovement.YEAR_MONTH_KEY} TEXT," +

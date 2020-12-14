@@ -14,6 +14,7 @@ class FinancialMovement {
         @JvmStatic val YEAR_MONTH_KEY = "year_month"
         //@JvmStatic val YEAR_KEY = "year"
         @JvmStatic val DAY_KEY = "day"
+        @JvmStatic val ID_KEY = "ID"
 
     }
 
@@ -36,6 +37,7 @@ class FinancialMovement {
         private set
     var day = ""
     var yearMonth = ""
+    var id = "-1"
 
     @get:Exclude var userId = ""
 

@@ -91,6 +91,7 @@ class SQLiteDAO(context: Context, userId: String) : FinancialMovementDAO {
                     val yearMonthValue =
                         this.getString(this.getColumnIndex(FinancialMovement.YEAR_MONTH_KEY))
                     val day = this.getString(this.getColumnIndex(FinancialMovement.DAY_KEY))
+                    val id = this.getString(this.getColumnIndex(FinancialMovement.ID_KEY))
 
                     listOfFinancialMovement.add(instantiateFinancialMovement(
                         value,
@@ -98,7 +99,8 @@ class SQLiteDAO(context: Context, userId: String) : FinancialMovementDAO {
                         category,
                         description,
                         yearMonthValue,
-                        day
+                        day,
+                        id
                     ))
                 }
             }
@@ -110,8 +112,8 @@ class SQLiteDAO(context: Context, userId: String) : FinancialMovementDAO {
 
     override fun deleteMovement(financialMovement: FinancialMovement): Boolean {
         val writable = connection!!.writableDatabase
-        val where = "${FinancialMovement.DESCRIPTION_KEY} LIKE ?"
-        val args = arrayOf(financialMovement.description)
+        val where = "${FinancialMovement.ID_KEY} LIKE ?"
+        val args = arrayOf(financialMovement.id)
         val result = writable.delete(connection!!.tableName, where, args)
 
         return result > 0
@@ -128,7 +130,8 @@ class SQLiteDAO(context: Context, userId: String) : FinancialMovementDAO {
         category: String,
         description: String,
         yearMonth: String,
-        day: String
+        day: String,
+        id: String
     ): FinancialMovement {
         val financialMovement = FinancialMovement()
         financialMovement.value = value
@@ -137,6 +140,7 @@ class SQLiteDAO(context: Context, userId: String) : FinancialMovementDAO {
         financialMovement.category = category
         financialMovement.description = description
         financialMovement.day = day
+        financialMovement.id = id
 
         return financialMovement
     }
