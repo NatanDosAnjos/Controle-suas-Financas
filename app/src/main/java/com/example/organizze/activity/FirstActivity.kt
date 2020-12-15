@@ -105,8 +105,10 @@ class FirstActivity : AppCompatActivity() {
                         dialog.setCancelable(true)
                         val stringPart1 = resources.getString(R.string.delete_dialog_message_part1)
                         val stringPart2 = resources.getString(R.string.delete_dialog_message_part2)
-                        dialog.setMessage("$stringPart1 ${listOfFinancialMovement[position].description} $stringPart2 " +
-                                "${showValue(listOfFinancialMovement[position].value)} ?")
+                        dialog.setMessage(stringPart1 +
+                                    " ${listOfFinancialMovement[position].description}" +
+                                    " $stringPart2 " +
+                                    "${showValue(listOfFinancialMovement[position].value)} ?")
                         dialog.setNegativeButton(getString(R.string.no)) { _, _ -> }
                         dialog.setPositiveButton(getString(R.string.yes)) { _, _ ->
                             if (sqlDataBase.deleteMovement(listOfFinancialMovement[position])) {

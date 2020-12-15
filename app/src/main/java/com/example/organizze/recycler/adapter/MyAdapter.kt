@@ -40,9 +40,28 @@ class MyAdapter(private val context: Context, private val list: MutableList<Fina
     }
 
     private fun showValue(value: Double): String {
+        val isNegative = value < 0
         val currentLocale = getLocale(context.resources)
-        val toFormatValue = NumberFormat.getNumberInstance(currentLocale)
-        return toFormatValue.format(value)
+        val toFormatValue = NumberFormat.getCurrencyInstance(currentLocale)
+        var newValueString = toFormatValue.format(value)
+        newValueString = removeDollarSign(newValueString)
+
+        if (isNegative) {
+            newValueString = "-$newValueString"
+        }
+
+        return newValueString
+    }
+
+    private fun removeDollarSign(string: String): String {
+        val charArray = string.toCharArray()
+        for (i in charArray.indices) {
+            if (charArray[i].isDigit()) {
+                val array = string.split(charArray[i-1])
+                return array[1]
+            }
+        }
+        return string
     }
 
 
